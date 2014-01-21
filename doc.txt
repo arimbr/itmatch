@@ -11,6 +11,8 @@ touch .gitignore
 echo "venv" >> .gitignore
 git init
 git add .
-git commit
+git commit -m "message"
+git pull origin master
+git push origin
 #toast
 
