@@ -1,14 +1,8 @@
 import json
 from random import random as random
 
-users = ["sajjad", "ari", "joakim"]
-interests = ["python", "machine learning", "debian", "prezi", "silly hardware"]
-dic = {"sajjad" : [1,1,0,1,0], "ari" : [1,1,1,1,0], "joakim" : [0,0,1,1,1] }
-
-def generate_users(dic):
-	"""Get some users"""
-	file_name = "users.json"
-	write_json(file_name, dic)
+#users = ['U'+str(i) for i in range(n)]
+#categories = ['C'+str(i) for i in range(m)]
 
 def read_json(file_name):
 	"""read json from a file and returns a python dictionary"""
@@ -23,26 +17,53 @@ def write_json(file_name, dic):
 	f.write(dic_json)
 	f.close()
 
-def get_weight(m=5, treshold=0.5):
+def get_weight(n=10, threshold=0.7):
 	"""returns a list with random 0s and 1s"""
 	weight = []
-	for i in range(m):
+	for i in range(n):
 		num = random()
-		if num < treshold:
+		if num < threshold:
 			weight.append(1)
 		else:
 			weight.append(0)
 	return weight
 
-def get_weights(n=3, m=5, treshold=0.5):
+def get_weights(m=10, n=10):
 	"""Returns a list of lists with random 0s and 1s"""
 	weights = []
-	for i in range(n):
-		weight = get_weight(m, treshold)
+	for i in range(m):
+		weight = get_weight(n)
 		weights.append(weight)
 	return weights
 
-def get_readable(users=users, interests=interests):
+def get_data(m=10, n=10):
 	"""returns a dictionary where the keys are dictionaries"""
-	weights = get_weights();
-	return dict(zip(users, [dict(zip(interests, weight)) for weight in weights]))
+	users = ['U'+str(i) for i in range(m)]
+	categories = ['C'+str(i) for i in range(n)]
+	weights = get_weights(m, n);
+	return dict(zip(users, [dict(zip(categories, weight)) for weight in weights]))
+
+def dist(data, user1, user2):
+	#v is dictionary with the categories
+	v = data[user1]
+	w = data[user2]
+	sum = 0.0
+	for key in v:
+		sum = sum + v[key]*w[key]
+
+	return sum/len(v)
+
+def compare(j,k):
+	data = get_data()
+	v, w = data[j], data[k]
+	return dist(v, w)
+
+def topMatches(data, user, n=5, similarity=dist):
+	"""returns the best matches for user"""
+	scores = [(similarity(data, user, other), other)
+				for other in data if other != user]
+	scores.sort()
+	scores.reverse()
+	return scores[0:n]
+
+
