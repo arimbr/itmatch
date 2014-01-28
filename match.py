@@ -1,5 +1,6 @@
 import json
 from random import random as random
+import sys
 
 #users = ['U'+str(i) for i in range(n)]
 #categories = ['C'+str(i) for i in range(m)]
@@ -65,5 +66,15 @@ def topMatches(data, user, n=5, similarity=dist):
 	scores.sort()
 	scores.reverse()
 	return scores[0:n]
+
+
+if __name__ == '__main__':
+	"""command line app"""
+	user = sys.argv[1]
+	print user
+	data = get_data()
+	tp = topMatches(data, user)
+	print tp
+
 
 
