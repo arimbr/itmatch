@@ -59,14 +59,11 @@ def tanimoto(data, user1, user2):
 
 	v1 = data[user1]
 	v2 = data[user2]
-
 	c1, c2, shr = 0, 0, 0
-
 	for c in v1:
 		if v1[c]!=0: c1 += 1  # in v1
 		if v2[c]!=0: c2 += 1  # in v2
 		if v1[c]!=0 and v2[c]!=0: shr += 1  # in both
-
 	try:
 		return float(shr)/(c1 + c2 - shr)
 	except ZeroDivisionError:
