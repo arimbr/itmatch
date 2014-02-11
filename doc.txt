@@ -1,0 +1,18 @@
+cd /home/ari
+sudo apt-get install python-pip
+sudo apt-get install git-core
+pip install virtualenv
+mkdir match
+cd match
+virtualenv venv
+source venv/bin/activate
+touch match.py
+touch .gitignore
+echo "venv" >> .gitignore
+git init
+git add .
+git commit -m "message"
+git pull origin master
+git push origin
+#toast
+
