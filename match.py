@@ -69,13 +69,21 @@ def tanimoto(data, user1, user2):
 	except ZeroDivisionError:
 		return 0
 
-def top_matches(data, user, n=5, distance=intersection):
+def top_matches(data, user, n=5, distance=tanimoto):
 	"""returns the best n matches for user as a list of tuples"""
 	scores = [(distance(data, user, other), other)
 				for other in data if other!=user]
 	scores.sort()
 	scores.reverse()
 	return scores[0:n]
+
+def distance_matrix(data, distance=tanimoto):
+	dm = {} #optimize
+	for user1 in data:
+		dm[user1] = {}
+		for user2 in data:
+			dm[user1][user2] = tanimoto(data, user1, user2)
+	return dm
 
 if __name__ == '__main__':
 	"""command line app, usage: python match.py U1"""
