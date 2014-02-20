@@ -1,0 +1,66 @@
+Conceive plan - ice breaker
+
+Team members: Ari, Joakim, Sajjad
+
+[Goal of project]
+
+- To solve the problem of having to manually match people (for making groups) with similar interests?
+
+[Technology strategy]
+
+- Basic knowledge of control version systems
+- Python programming language
+- Web framework
+- JSON data interchange structure
+- To-do list application "Wunderlist"
+- Unix operating system
+
+[Requirements]
+
+- user interface for the users to enter data
+- algorithm that processes the data
+- present the data to the user
+
+[Function]
+
+- Our project could save time and money, and could suggest the best possible matches so efficiently that is time consuming in real world?
+
+[Program plan]
+
+- Writing the program and putting it on web as soon as possible with the simplest methods and algorithms and then making it more complex?
+
+[Implementation]
+
+Our approach is to make the final version first with the simplest algorithms and features and then make it more complex by time.
+
+V1:
+
+1) we have random data pre-defined on the local computer
+2) the user goes to the "result" page hosted in the local computer
+3) the algorithm is run and process data
+4) the user gets the html template with the recommendations for each user
+# we have only one page at this version, the "results" page
+
+V2:
+
+1) we provide a page where user can submit his/her data
+2) the algorithm is run again and produces new results based on new data
+3) the result page is created again
+4) deploy the code to server
+# we have one additional page in this version called "submit"
+
+V2.1:
+
+1) grouping algorithm is chosen and developed.
+1.a) taking one user randomly, finding the closest distance users to the user that we chose, eliminate them from the group, and keep going until we're left with no one.
+1.b) taking out the weakest connections out of the distance matrix until we are left with 2 seperated groups, and then run the algorithm again inside every group that is not small enough ("small enough" is dependent on the problem that we have, for example, if we want groups of 2 people, 3 people, etc )
+1.c) random work in the distance graph
+1.d) using K-means clustering
+
+2) providing visualization of the groups made by the chosen algorithm in the results page. 
+
+V3:
+
+1) creating administration profile that have access to modify categories.
+2) creating users profile where users can modify their data.
+*** every approach should be tested with "satisfaction test", both within individual groups and the global satisfaction average.
