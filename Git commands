@@ -1,0 +1,18 @@
+Commands					Description
+sudo apt-get install git			installs git in the OS
+git init					initialize git in the current directory
+git config --global user.NAME			configures your name for labelling commits
+git config --global user.EMAIL			configures your email (must be same as github account)
+git config --global credential.helper cache	enables git to remember credentials for 15 mins
+git remote add OMG				adds OMG as a remote (case sensitive)
+git clone OMG 					gets all the files from OMG repository and put them into OMG directory
+***
+git pull					automatically FETCH AND MERGE changes
+***
+git fetch					fetches all changes and saves them locally
+git merge					merges the changes already stored by git fetch and tells in case of conflicts
+***
+git branch OMG					creates the OMG branch
+git checkout OMG				makes the OMG branch the active branch
+git merge OMG					merges the commited changes from OMG branch into master branch
+git remote -v / --verbose			tells all the remote addresses defined in git
