@@ -17,9 +17,9 @@ Team members: Ari, Joakim, Sajjad
 
 [Requirements]
 
-- User interface for the users to enter data
-- Algorithm that processes the data
-- Present the data to the user
+- User interface for users to enter data
+- Algorithm that processes data
+- Presenting data to users
 
 [Function]
 
