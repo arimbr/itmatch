@@ -35,27 +35,28 @@ Our approach is to make the final version first with the simplest algorithms and
 
 V1:
 
-1) we have random data pre-defined on the local computer
+1) we have data pre-defined on the local computer
 2) the user goes to the "result" page hosted in the local computer
-3) the algorithm is run and process data
+3) there is a django model for Users, Tags and Distances between users in a database
 4) the user gets the html template with the recommendations for each user
 # we have only one page at this version, the "results" page
 
 V2:
 
 1) we provide a page where user can submit his/her data
-2) the algorithm is run again and produces new results based on new data
-3) the result page is created again
-4) deploy the code to server
+2) the database tables are updated after new data is submitted
+3) the results page is created dynamically after each request
+4) select database
+5) deploy the code to server
 # we have one additional page in this version called "submit"
 
 V2.1:
 
 1) grouping algorithm is chosen and developed.
-1.a) taking one user randomly, finding the closest distance users to the user that we chose, eliminate them from the group, and keep going until we're left with no one.
-1.b) taking out the weakest connections out of the distance matrix until we are left with 2 seperated groups, and then run the algorithm again inside every group that is not small enough ("small enough" is dependent on the problem that we have, for example, if we want groups of 2 people, 3 people, etc )
-1.c) random work in the distance graph
-1.d) using K-means clustering
+  1.a) taking one user randomly, finding the closest distance users to the user that we chose, eliminate them from the group, and keep going until we're left with no one.
+  1.b) taking out the weakest connections out of the distance matrix until we are left with 2 seperated groups, and then run the algorithm again inside every group that is not small enough ("small enough" is dependent on the problem that we have, for example, if we want groups of 2 people, 3 people, etc )
+  1.c) random walk in the distance graph
+  1.d) using K-means clustering
 
 2) providing visualization of the groups made by the chosen algorithm in the results page. 
 
