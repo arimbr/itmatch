@@ -41,11 +41,13 @@ def get_tags(html):
 	return tags
 
 def run():
+
+	jobs = {}
 	
-	for page_number in range(1,14):
+	for page_number in range(1,54):
 		#change 14 with error handling
 
-		URL = "http://careers.stackoverflow.com/jobs?searchTerm=python&pg=" + str(page_number)
+		URL = "http://careers.stackoverflow.com/jobs?pg=" + str(page_number)
 		print "Crunching page: ", page_number
 
 		response = urllib2.urlopen(URL)
@@ -60,30 +62,28 @@ def run():
 		#f = open("jobs.txt")
 		#html = f.read()
 
-		jp = 0
+		p = 0
 		#while(jp>=0):
 		for i in range(100):
 
-			job, jp = find_job(html, jp)
-			if jp == -1:
+			job, p = find_job(html, p)
+			print p
+			if p == -1:
 				break
 
 			if job not in jobs and len(job) < 10: #change for job contains only digits
-				tp_start = html.find('<p class="tags">', jp)
+				tp_start = html.find('<p class="tags">', p)
 				tp_end = html.find("</p>", tp_start)
-				html = html[tp_start:tp_end]
-				tags = get_tags(html)
+				string = html[tp_start:tp_end]
+				tags = get_tags(string)
 				jobs[job] = tags
 
 		time.sleep(0.1)
 
-
-jobs = {}
-
-run()
-#write_json("pythonjobs.json", jobs)
-#print "Total jobs crunched: ", len(jobs)
+	write_json("output.json", jobs)
+	print "Total jobs crunched: ", len(jobs)
 
 if __name__ == "__main__":
+	run()
 	import doctest
 	doctest.testmod()
