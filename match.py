@@ -1,22 +1,10 @@
 import json
-from random import random as random
 import sys
+from random import random as random
+from jsontools import read_json, write_json
 
 #users = ['U'+str(i) for i in range(10)]
 #categories = ['C'+str(i) for i in range(10)]
-
-def read_json(file_name):
-	"""read json from a file and returns a python dictionary"""
-	f = open(file_name)
-	string = f.read()
-	return json.loads(string)
-
-def write_json(file_name, dic):
-	"""write json into file from a python dictionary"""
-	f = open(file_name, "w")
-	dic_json = json.dumps(dic, separators=(',', ': ') )
-	f.write(dic_json)
-	f.close()
 
 def get_weights(m=10, n=10, threshold=0.7):
 	"""Returns a list of lists with random 0s and 1s"""
