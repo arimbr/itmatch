@@ -7,7 +7,14 @@ from jsontools import read_json, write_json
 #categories = ['C'+str(i) for i in range(10)]
 
 def get_weights(m=10, n=10, threshold=0.7):
-	"""Returns a list of lists with random 0s and 1s"""
+	"""Returns a list of lists with random 0s and 1s
+	>>> type(get_weights())
+	<type 'list'>
+	>>> len(get_weights())
+	10
+	>>> len(get_weights()[0])
+	10
+	"""
 	weights = []
 	for i in range(m):
 		weight = []
@@ -22,7 +29,8 @@ def get_weights(m=10, n=10, threshold=0.7):
 def get_data(m=8, n=8):
 	#we may run out of memory for m,n = 10, 10 !!!!
 	"""returns a dictionary with users as keys
-	and dictionaries as values"""
+	and dictionaries as values
+	"""
 	users = ['U'+str(i) for i in range(m)]
 	categories = ['C'+str(i) for i in range(n)]
 	weights = get_weights(m, n);
@@ -30,8 +38,8 @@ def get_data(m=8, n=8):
 							for weight in weights]))
 
 def intersection(data, user1, user2):
-	"""returns a number between 0.0 and 1.0"""
-	"""0 for for nothing in common, 1 for all ones vector"""
+	"""returns a number between 0.0 and 1.0
+	0 for for nothing in common, 1 for all ones vector"""
 	v1 = data[user1]
 	v2 = data[user2]
 	sum = 0.0
@@ -43,8 +51,8 @@ def intersection(data, user1, user2):
 def tanimoto(data, user1, user2):
 	"""returns a number between 0.0 and 1.0
 	0.0 nobody who wants the first item wants the second one,
-	and 1.0 means that v1 and v2 are equal"""
-
+	and 1.0 means that v1 and v2 are equal
+	"""
 	v1 = data[user1]
 	v2 = data[user2]
 	c1, c2, shr = 0, 0, 0
@@ -66,6 +74,9 @@ def top_matches(data, user, n=5, distance=tanimoto):
 	return scores[0:n]
 
 def distance_matrix(data, distance=tanimoto):
+	"""returns a square symmetric matrix with
+	the distances between each pair of users
+	"""
 	dm = {} #optimize
 	for user1 in data:
 		dm[user1] = {}
@@ -78,3 +89,6 @@ if __name__ == '__main__':
 	user = sys.argv[1]
 	data = get_data()
 	print top_matches(data, user)
+
+	import doctest
+	doctest.testmod()
