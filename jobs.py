@@ -5,30 +5,35 @@ import urllib2
 from jsontools import read_json, write_json
 
 #Utilities
-def find_next_job(html, p):
-	"""Returns job id and position in a html string
+def find_job(html, p):
+	"""find job id in html
 
 	>>> html = '<div data-jobid="48374">'
-	>>> find_next_job(html, 0)
+	>>> find_job(html, 0)
 	('48374', 6)
 	"""
 	job_pos =  html.find("data-jobid", p)
-	start = html.find('"', job_pos)
-	end = html.find('"', start + 1)
-	job_id = html[start + 1:end]
+	start = html.find('"', job_pos) + 1
+	end = html.find('"', start)
+	job_id = html[start:end]
 	return job_id, job_pos + 1
 
-def get_tags(string):
-	"""'<p class="tags"><a class="post-tag job-link" href="/jobs/tag/java">java</a> \
-	<a class="post-tag job-link" href="/jobs/tag/python">python</a> </p>'"""
+def get_tags(html):
+	"""returns a list of tags from a html
+
+	>>> html = '<p class="tags"><a class="post-tag job-link" href="/jobs/tag/java">java</a> \
+	<a class="post-tag job-link" href="/jobs/tag/python">python</a> </p>'
+	>>> get_tags(html)
+	['java', 'python']
+	"""
 	end = 0
 	tags = []
 	for i in range(100):
-		end = string.find("</a>", end)
+		end = html.find("</a>", end)
 		if end == -1:
 			break
-		start = string.rfind(">", 0, end)
-		tag = string[start+1:end]
+		start = html.rfind(">", 0, end)
+		tag = html[start+1:end]
 		tags.append(tag)
 
 		end += 1
@@ -36,11 +41,12 @@ def get_tags(string):
 	return tags
 
 def run():
+	
 	for page_number in range(1,14):
 		#change 14 with error handling
-		print "Crunching page: ", page_number
 
 		URL = "http://careers.stackoverflow.com/jobs?searchTerm=python&pg=" + str(page_number)
+		print "Crunching page: ", page_number
 
 		response = urllib2.urlopen(URL)
 		html = response.read()
@@ -58,18 +64,18 @@ def run():
 		#while(jp>=0):
 		for i in range(100):
 
-			job, jp = find_next_job(html, jp)
+			job, jp = find_job(html, jp)
 			if jp == -1:
 				break
 
 			if job not in jobs and len(job) < 10: #change for job contains only digits
 				tp_start = html.find('<p class="tags">', jp)
 				tp_end = html.find("</p>", tp_start)
-				string = html[tp_start:tp_end]
-				tags = get_tags(string)
+				html = html[tp_start:tp_end]
+				tags = get_tags(html)
 				jobs[job] = tags
 
-		time.sleep(1)
+		time.sleep(0.1)
 
 
 jobs = {}
