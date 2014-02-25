@@ -2,6 +2,8 @@ import json
 import time
 import urllib2
 
+from jsontools import read_json, write_json
+
 #Utilities
 def find_job(html, jp):
 	jp =  html.find("jobid", jp)
@@ -25,13 +27,6 @@ def get_tags(string):
 		end += 1
 
 	return tags
-
-def write_json(file_name, dic):
-	"""write json into file from a python dictionary"""
-	f = open(file_name, "w")
-	dic_json = json.dumps(dic, separators=(',', ': ') )
-	f.write(dic_json)
-	f.close()
 
 jobs = {}
 
