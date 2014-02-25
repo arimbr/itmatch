@@ -4,7 +4,7 @@ import time
 
 from jsontools import read_json, write_json
 
-file_name = "output.json"
+file_name = "data/output.json"
 d = read_json(file_name)
 
 #remove user without categories
@@ -40,7 +40,7 @@ popular_categories = [c for c, p in popular if p > popularity_threshold]
 print "There are " + str(len(popular_categories)) + " categories with more than " + str(popularity_threshold) + " users"
 for p in popular_categories:
 	print p
-write_json("categories.json", popular_categories)
+write_json("data/categories.json", popular_categories)
 print "writing categories in json format to categories.json"
 
 #format jobs for ML
@@ -81,7 +81,7 @@ for job, tags in data.iteritems():
 print "length of data after cleaning: ", len(clean_data)
 
 #Save data in json format
-write_json("output.json", clean_data)
+write_json("data/output.json", clean_data)
 
 
 
