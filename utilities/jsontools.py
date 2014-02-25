@@ -1,3 +1,5 @@
+import json
+
 def read_json(file_name):
 	"""read json from a file and returns a python dictionary"""
 	f = open(file_name)
