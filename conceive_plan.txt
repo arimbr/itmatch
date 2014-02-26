@@ -8,7 +8,7 @@ Team members: Ari, Joakim, Sajjad
 
 [Technology strategy]
 
-- Basic knowledge of souce code management system "Git"
+- Basic knowledge of source code management system "Git"
 - Python programming language
 - Basic knowledge of Python web framework "Django"
 - JSON data interchange structure
@@ -17,9 +17,9 @@ Team members: Ari, Joakim, Sajjad
 
 [Requirements]
 
-- User interface for users to enter data
-- Algorithm that processes data
-- Presenting data to users
+- User data entry interface
+- Data processing algorithm
+- Data presentation
 
 [Function]
 
@@ -53,10 +53,6 @@ V2:
 V2.1:
 
 1) grouping algorithm is chosen and developed.
-  1.a) taking one user randomly, finding the closest distance users to the user that we chose, eliminate them from the group, and keep going until we're left with no one.
-  1.b) taking out the weakest connections out of the distance matrix until we are left with 2 seperated groups, and then run the algorithm again inside every group that is not small enough ("small enough" is dependent on the problem that we have, for example, if we want groups of 2 people, 3 people, etc )
-  1.c) random walk in the distance graph
-  1.d) using K-means clustering
 
 2) providing visualization of the groups made by the chosen algorithm in the results page. 
 
@@ -65,3 +61,4 @@ V3:
 1) creating administration profile that have access to modify categories.
 2) creating users profile where users can modify their data.
 *** every approach should be tested with "satisfaction test", both within individual groups and the global satisfaction average.
+
