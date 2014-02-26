@@ -1,10 +1,10 @@
 Conceive plan
 
-Team members: Ari, Joakim, Sajjad
+Team members: Ari Rouvinen, Joakim Korhonen, Sajjad Hosseini
 
 [Goal of project]
 
-- To solve the problem of having to manually match people (for making groups) with similar interests.
+The goal of the project is to create a web application that helps people with similar interests to connect and make groups for projects
 
 [Technology strategy]
 
@@ -23,42 +23,45 @@ Team members: Ari, Joakim, Sajjad
 
 [Function]
 
-- Our project could save time and money, and could suggest the best possible matches so efficiently that is time consuming in real world.
-
-[Program plan]
-
-- Writing the program and putting it on web as soon as possible with the simplest methods and algorithms and then making it more complex.
+Our project could suggest the best possible matches of people for project groups, saving time compared to manual grouping.
+Project scope is initially only for orientation project group creation, can be extended to whole Metropolia with sufficient resources.
 
 [Implementation]
 
-Our approach is to make the final version first with the simplest algorithms and features and then make it more complex by time.
+Our approach is to make the initial version first with the basic feature set and then add features as time allows.
 
 V1:
 
-1) we have data pre-defined on the local computer
-2) the user goes to the "result" page hosted in the local computer
-3) there is a django model for Users, Tags and Distances between users in a database
-4) the user gets the html template with the recommendations for each user
-# we have only one page at this version, the "results" page
+1) We have data pre-defined on the local computer
+2) The user goes to the "result" page hosted in the local computer
+3) There is a Django model for Users, Tags and Distances between users in a database
+4) The user gets the html template with the recommendations for each user
+# We have only one page at this version, the "results" page
 
 V2:
 
-1) we provide a page where user can submit his/her data
-2) the database tables are updated after new data is submitted
-3) the results page is created dynamically after each request
-4) select database
-5) deploy the code to server
-# we have one additional page in this version called "submit"
-
-V2.1:
-
-1) grouping algorithm is chosen and developed.
-
-2) providing visualization of the groups made by the chosen algorithm in the results page. 
+1) We provide a page where user can submit his/her data
+2) The database tables are updated after new data is submitted
+3) The results page is created dynamically after each request
+4) Select database
+5) Deploy the code to server
+# We have one additional page in this version called "submit"
 
 V3:
 
-1) creating administration profile that have access to modify categories.
-2) creating users profile where users can modify their data.
-*** every approach should be tested with "satisfaction test", both within individual groups and the global satisfaction average.
+1) Grouping algorithm is chosen and developed
+2) Providing visualization of the data
 
+V4:
+
+1) Creating administration profile that have access to modify categories.
+2) Creating users profile where users can modify their data.
+3) Authentication system
+
+[Program plan]
+
+Aiming for implementing:
+- V1 by 11.3.2014
+- V2 by 25.3.2014
+- V3 by 8.4.2014
+- (V4 optional)
