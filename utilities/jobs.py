@@ -72,13 +72,13 @@ def run():
 		for i in range(100):
 
 			job, pos = find_job(html, pos+1)
-			print pos
+			#print pos
 			
 			#if we don't find a job
 			if pos == -1:
 				break
 
-			if job not in jobs and len(job) < 10: #change for job contains only digits
+			if job not in jobs and job.isdigit():
 				#move to a function to add tests
 				tp_start = html.find('<p class="tags">', pos)
 				tp_end = html.find("</p>", tp_start)
