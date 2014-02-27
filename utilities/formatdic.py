@@ -9,15 +9,6 @@ d = read_json(file_name)
 
 #remove user without categories
 print "Before cleaning there are ", len(d), " jobs"
-empty_jobs = []
-for job, tags in d.iteritems():
-	if len(tags) == 0:
-		empty_jobs.append(job)
-
-for job in empty_jobs:
-	del d[job]
-
-print "After cleaning there are ", len(d), " jobs"
 
 #get categories frequencies
 categories = {}
@@ -69,8 +60,6 @@ def more_than_n_non_zero_values(dic, n):
 	else:
 		return False
 
-print "lenght of data before cleaning: ", len(data)
-
 """Clean data"""
 clean_data = {}
 n = 4
@@ -78,10 +67,10 @@ for job, tags in data.iteritems():
 	if more_than_n_non_zero_values(tags, n):
 		clean_data[job] = tags
 
-print "length of data after cleaning: ", len(clean_data)
+print "length of data after removing users with less than ", n, " interests: ", len(clean_data)
 
 #Save data in json format
-write_json("data/output.json", clean_data)
+write_json("data/foutput.json", clean_data)
 
 
 
