@@ -17,6 +17,10 @@ git checkout OMG				makes the OMG branch the active branch
 git merge OMG					merges the commited changes from OMG branch into master branch
 git remote -v / --verbose			tells all the remote addresses defined in git
 ***
-git reset HEAD <file>			    undo git add <file>
-git add -u 				stage tracked files, including deleting the previously tracked files
-git commit -a 		  	automatically "rm" files in the index that have been removed from the working tree
+git reset HEAD <file>			    	undo git add <file>
+git add -u 					stage tracked files, including deleting the previously tracked files
+git commit -a 		  			automatically "rm" files in the index that have been removed from the working tree
+***
+git fetch --all					downloads the latest from remote without trying to merge anything
+git reset --hard origin/master			resets the master branch to what you just fetched
+***
