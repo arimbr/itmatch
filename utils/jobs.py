@@ -4,15 +4,17 @@ import urllib2
 
 from jsontools import read_json, write_json
 
+BASE_URL = "http://careers.stackoverflow.com/jobs?pg="
+
 #Utilities
-def find_job(html, pos):
+def get_job(html, pos):
 	"""find job id in html
 
 	>>> html = '<div data-jobid="48374">'
-	>>> find_job(html, 0)
+	>>> get_job(html, 0)
 	('48374', 5)
 	>>> html = '<div></div>'
-	>>> find_job(html, 0)
+	>>> get_job(html, 0)
 	('', -1)
 	"""
 	job = ''
@@ -22,6 +24,16 @@ def find_job(html, pos):
 		end = html.find('"', start)
 		job = html[start:end]
 	return job, pos
+
+def get_tags_html(html, pos):
+	"""
+	>>> html = '<div data-jobid="44623" class="highlighted"><p class="posted top">&lt; 1 hour ago</p><p class="tags"><a class="post-tag job-link" href="/jobs/tag/java">java</a><a class="post-tag job-link" href="/jobs/tag/python">python</a> </p> <p></p>'
+	>>> get_tags_html(html, 0)
+	'<p class="tags"><a class="post-tag job-link" href="/jobs/tag/java">java</a><a class="post-tag job-link" href="/jobs/tag/python">python</a> </p>'
+	"""
+	start = html.find('<p class="tags">', pos)
+	end = html.find("</p>", start) + len("</p>")
+	return html[start:end]
 
 def get_tags(html):
 	"""returns a list of tags from a html
@@ -45,53 +57,47 @@ def get_tags(html):
 
 	return tags
 
-def run():
+def crunch():
+	"""
+	Update jobs.json with new jobs
+	"""
 
-	jobs = {}
-	
-	for page_number in range(1,54):
-		#change 14 with error handling
+	jobs = read_json("data/output.json")
 
-		URL = "http://careers.stackoverflow.com/jobs?pg=" + str(page_number)
+	for page_number in range(1,100):
+
+		URL = BASE_URL + str(page_number)
+		
 		print "Crunching page: ", page_number
-
 		response = urllib2.urlopen(URL)
 		html = response.read()
 
-		#write html to file
-		#f = open("jobs.txt", "w")
-		#f.write(html)
+		# break if page has no jobs
+		job, pos = get_job(html, 0)
+		if pos == -1:
+			break
 
-		#process the file
-		#file = "jobs.txt"
-		#f = open("jobs.txt")
-		#html = f.read()
-
+		#get jobs and tags
 		pos = -1
-		#while(jp>=0):
 		for i in range(100):
 
-			job, pos = find_job(html, pos+1)
-			#print pos
-			
 			#if we don't find a job
+			job, pos = get_job(html, pos+1)
 			if pos == -1:
 				break
 
 			if job not in jobs and job.isdigit():
 				#move to a function to add tests
-				tp_start = html.find('<p class="tags">', pos)
-				tp_end = html.find("</p>", tp_start)
-				string = html[tp_start:tp_end]
-				tags = get_tags(string)
+				tags_html = get_tags_html(html, pos)
+				tags = get_tags(tags_html)
 				jobs[job] = tags
 
-		time.sleep(0.1)
+		time.sleep(0.5)
 
 	write_json("data/output.json", jobs)
 	print "Total jobs crunched: ", len(jobs)
 
 if __name__ == "__main__":
-	run()
+	crunch()
 	import doctest
 	doctest.testmod()
