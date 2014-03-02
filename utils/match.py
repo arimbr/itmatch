@@ -81,6 +81,9 @@ def tanimoto2(data, user1, user2):
 	>>> data = {'1': ["python", "C"], '2': ["python"]}
 	>>> 0 < tanimoto2(data, '1', '2') < 1
 	True
+	>>> data = {'1': [], '2': []}
+	>>> tanimoto2(data, '1', '2')
+	1.0
 	"""
 	v1 = data[user1]
 	v2 = data[user2]
@@ -88,7 +91,15 @@ def tanimoto2(data, user1, user2):
 	c1 = len(v1)
 	c2 = len(v2)
 	shr = len(set(v1).intersection(v2))
-	return 1 - float(shr)/(c1 + c2 - shr)
+	try:
+		return 1 - float(shr)/(c1 + c2 - shr)
+	except ZeroDivisionError:
+		#v1 and v2 empty lists	
+		#print user1, v1, c1
+		#print user2, v2, c2
+		#print "*"*10
+		return 1.0
+	
 
 
 def top_matches(data, user, n=5, distance=tanimoto):
