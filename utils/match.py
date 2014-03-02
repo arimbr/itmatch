@@ -107,7 +107,7 @@ def distance_matrix(data, distance=tanimoto):
 	for user1 in data:
 		dm[user1] = {}
 		for user2 in data:
-			dm[user1][user2] = tanimoto(data, user1, user2)
+			dm[user1][user2] = distance(data, user1, user2)
 	return dm
 
 if __name__ == '__main__':
