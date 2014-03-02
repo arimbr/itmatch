@@ -65,6 +65,32 @@ def tanimoto(data, user1, user2):
 	except ZeroDivisionError:
 		return 0
 
+def tanimoto2(data, user1, user2):
+	"""returns the distance between user1 and user2
+	0.0 means that the users tags are equal
+	1.0 means that the user don't have any tag in common
+	data is a dictionary whith user ids as key, and a list of tags as values
+	user1 and user2 are user ids
+
+	>>> data = {'1': ["python", "C"], '2': ["python", "C"]}
+	>>> tanimoto2(data, '1', '2')
+	0.0
+	>>> data = {'1': ["python", "C"], '2' : ["java"]}
+	>>> tanimoto2(data, '1', '2')
+	1.0
+	>>> data = {'1': ["python", "C"], '2': ["python"]}
+	>>> 0 < tanimoto2(data, '1', '2') < 1
+	True
+	"""
+	v1 = data[user1]
+	v2 = data[user2]
+
+	c1 = len(v1)
+	c2 = len(v2)
+	shr = len(set(v1).intersection(v2))
+	return 1 - float(shr)/(c1 + c2 - shr)
+
+
 def top_matches(data, user, n=5, distance=tanimoto):
 	"""returns the best n matches for user as a list of tuples"""
 	scores = [(distance(data, user, other), other)
@@ -86,9 +112,9 @@ def distance_matrix(data, distance=tanimoto):
 
 if __name__ == '__main__':
 	"""command line app, usage: python match.py U1"""
-	user = sys.argv[1]
-	data = get_data()
-	print top_matches(data, user)
+	#user = sys.argv[1]
+	#data = get_data()
+	#print top_matches(data, user)
 
 	import doctest
 	doctest.testmod()
