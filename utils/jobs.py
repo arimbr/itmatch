@@ -1,12 +1,14 @@
 import json
 import time
 import urllib2
+import os.path
 
 from jsontools import read_json, write_json
 
 BASE_URL = "http://careers.stackoverflow.com/jobs?pg="
+JOBS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/data/jobs.json'
+print JOBS_FILE
 
-#Utilities
 def get_job(html, pos):
 	"""find job id in html
 
@@ -62,7 +64,8 @@ def crunch():
 	Update jobs.json with new jobs
 	"""
 
-	jobs = read_json("data/output.json")
+	jobs = read_json(JOBS_FILE)
+	jobs_length_before = len(jobs)
 
 	for page_number in range(1,100):
 
@@ -94,8 +97,11 @@ def crunch():
 
 		time.sleep(0.5)
 
-	write_json("data/output.json", jobs)
-	print "Total jobs crunched: ", len(jobs)
+	jobs_length_after = len(jobs)
+	print "Number of jobs added: ", jobs_length_after - jobs_length_before
+	print "Total number of jobs: ", jobs_length_after
+	print "Writing jobs in: ", JOBS_FILE
+	write_json(JOBS_FILE, jobs)
 
 if __name__ == "__main__":
 	crunch()
