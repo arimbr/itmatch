@@ -1,6 +1,8 @@
 import json
 import sys
+
 from random import random as random
+
 from jsontools import read_json, write_json
 
 #users = ['U'+str(i) for i in range(10)]
@@ -99,18 +101,16 @@ def tanimoto2(data, user1, user2):
 		#print user2, v2, c2
 		#print "*"*10
 		return 1.0
-	
 
-
-def top_matches(data, user, n=5, distance=tanimoto):
+def top_matches(data, user, n=5, distance=tanimoto2):
 	"""returns the best n matches for user as a list of tuples"""
 	scores = [(distance(data, user, other), other)
 				for other in data if other!=user]
 	scores.sort()
-	scores.reverse()
+	#scores.reverse() #for tanimoto
 	return scores[0:n]
 
-def distance_matrix(data, distance=tanimoto):
+def distance_matrix(data, distance=tanimoto2):
 	"""returns a square symmetric matrix with
 	the distances between each pair of users
 	"""
