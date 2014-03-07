@@ -15,12 +15,15 @@ class Distance(models.Model):
 	d = models.FloatField()
 
 	def __unicode__(self):
-		return "{0} to {1}".format(self.from_user, self.to_user)
+		return "{0:.2f} to {1}".format(self.d, self.to_user)
 
 class User(models.Model):
 	name = models.CharField(max_length=20)
 	tags = models.ManyToManyField('Tag', related_name = 'users')
 	distances = models.ManyToManyField('Distance')
+
+	def closer(self):
+		return self.distances.filter(d__lte=0.5).order_by('d')[:5]
 
 	def __unicode__(self):
 		return self.name
@@ -30,7 +33,7 @@ class UserForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(UserForm, self).__init__(*args, **kwargs)
 		self.fields['tags'].queryset = self.instance.tags.all()
-		self.fields['distances'].queryset = self.instance.distances.all()
+		self.fields['distances'].queryset = self.instance.distances.all().filter(d__lt=1).order_by('d')
 
 #When changing models:
 #python manage.py sqlclear match | python manage.py dbshell
