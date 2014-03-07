@@ -4,74 +4,62 @@ import time
 
 from jsontools import read_json, write_json
 
-file_name = "data/output.json"
-d = read_json(file_name)
+data = read_json("data/jobs.json")
 
-#remove user without categories
-print "Before cleaning there are ", len(d), " jobs"
+print "Before cleaning there are ", len(data), " jobs"
 
-#get categories frequencies
-categories = {}
-for job, tags in d.iteritems():
-	for tag in tags:
-		if tag not in categories:
-			categories[tag] = 1
-		else:
-			categories[tag] += 1
-
-
-print "There are ", len(categories), " categories"
-print "\n"
-time.sleep(3)
-
-popular = sorted(categories.iteritems(), key=operator.itemgetter(1), reverse=True) #list of tuples
-popularity_threshold = 10
-popular_categories = [c for c, p in popular if p > popularity_threshold]
-#print popular
-print "There are " + str(len(popular_categories)) + " categories with more than " + str(popularity_threshold) + " users"
-for p in popular_categories:
-	print p
-write_json("data/categories.json", popular_categories)
-print "writing categories in json format to categories.json"
-
-#format jobs for ML
-def format_data():
-	data = {}
-	for job, tags in d.iteritems():
-		weights = dict(zip(popular_categories, [0]*len(popular_categories)))
+#get tags frequencies
+def get_tags_frequencies(data):
+	frequency = {}
+	for job, tags in data.iteritems():
 		for tag in tags:
-			if tag in popular_categories:
-				weights[tag] = 1
+			if tag not in frequency:
+				frequency[tag] = 1
+			else:
+				frequency[tag] += 1
+	return frequency
 
-		data[job] = weights
-	return data
+def filter_tags(d, tags):
+	"""
+	Takes out values from d that are not in tags, and also users that have no tags
+	"""
+	return dict([(k,filter(lambda x: x in tags, v))
+				for k, v in d.iteritems() if v])
 
-data = format_data()
-#print data
-#Format data so we dont have users without categories
+def clean_empty_values(d):
+	return dict([(k, v) for k,v in d.iteritems() if len(v)>0][:20])	
 
-def more_than_n_non_zero_values(dic, n):
-	count = 0
-	for k, v in dic.iteritems():
-		if v != 0:
-			count += 1
-	if count > n:
-		return True
-	else:
-		return False
 
-"""Clean data"""
-clean_data = {}
-n = 4
-for job, tags in data.iteritems():
-	if more_than_n_non_zero_values(tags, n):
-		clean_data[job] = tags
+tags = get_tags_frequencies(data)
+print "There are ", len(tags), " tags"
+print "\n"
 
-print "length of data after removing users with less than ", n, " interests: ", len(clean_data)
+# -------- Start to refactor ---------
 
-#Save data in json format
-write_json("data/foutput.json", clean_data)
+popular = sorted(tags.iteritems(), key=operator.itemgetter(1), reverse=True) #list of tuples
+popularity_threshold = 120
+popular_tags = [(c, p) for c, p in popular if p > popularity_threshold]
+#print popular
+print "There are " + str(len(popular_tags)) + " tags with more than " + str(popularity_threshold) + " users"
 
+for c, p in popular_tags:
+	print p, c
+
+tags = [c for c, _ in popular_tags]
+write_json("data/tags_output.json", tags)
+print "Writing tags to tags.json"
+
+# --------- End to refactor ------
+
+data = filter_tags(data, tags)
+data = clean_empty_values(data)
+print "After cleaning there are ", len(data), "jobs"
+
+write_json("data/users_output.json", data)
+
+if __name__ == "__main__":
+	import doctest
+	doctest.testmod()
 
 
 
