@@ -1,0 +1,20 @@
+<html>
+
+<h1>Result page</h1>
+{% for user in users %}
+	<p>
+		User: {{user.name}}
+		<br>
+		Tags:
+		{% for tag in user.tags.all %}
+			{{tag.name}}, 
+		{% endfor %}
+		<br>
+		Closest users:
+		{% for distance in user.closer %}
+			{{distance.to_user}} ({{distance.d | floatformat:1}}),
+		{% endfor %}
+	</p>
+{% endfor %}
+
+</html>
