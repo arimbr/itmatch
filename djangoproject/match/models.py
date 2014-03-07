@@ -19,7 +19,7 @@ class Distance(models.Model):
 
 class User(models.Model):
 	name = models.CharField(max_length=20)
-	tags = models.ManyToManyField('Tag' related_name="users")
+	tags = models.ManyToManyField('Tag', related_name = 'users')
 	distances = models.ManyToManyField('Distance')
 
 	def __unicode__(self):
