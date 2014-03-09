@@ -3,16 +3,16 @@
 <h1>Result page</h1>
 {% for user in users %}
 	<p>
-		User: {{user.name}}
+		User: <a href="/profile/{{ user.id }}">{{ user.name }}</a>
 		<br>
 		Tags:
 		{% for tag in user.tags.all %}
-			{{tag.name}}, 
+			{{ tag.name }}, 
 		{% endfor %}
 		<br>
 		Closest users:
 		{% for distance in user.closer %}
-			{{distance.to_user}} ({{distance.d | floatformat:1}}),
+			{{ distance.to_user.name }} ({{ distance.d | floatformat:1 }}),
 		{% endfor %}
 	</p>
 {% endfor %}
