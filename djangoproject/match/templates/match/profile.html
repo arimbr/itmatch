@@ -2,9 +2,9 @@
 
 <h1>User profile</h1>
 <p>
-	User: {{ user.name }}
+	{{ user.name }}
 	<br>
-	Tags:
+	Interests:
 	{% for tag in user.tags.all %}
 		{{ tag.name }}, 
 	{% endfor %}
