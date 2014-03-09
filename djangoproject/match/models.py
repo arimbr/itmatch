@@ -18,12 +18,12 @@ class Distance(models.Model):
 		return "{0:.2f} to {1}".format(self.d, self.to_user)
 
 class User(models.Model):
-	name = models.CharField(max_length=20)
+	name = models.CharField(max_length=20) #unique=True
 	tags = models.ManyToManyField('Tag', related_name = 'users')
 	distances = models.ManyToManyField('Distance')
 
 	def closer(self):
-		return self.distances.filter(d__lte=0.5).order_by('d')[:5]
+		return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
 
 	def __unicode__(self):
 		return self.name
