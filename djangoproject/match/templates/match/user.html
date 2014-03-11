@@ -1,0 +1,16 @@
+<p>
+	<a href={% url 'match:home' %}>Home</a> |
+	<a href={% url 'match:users' %}>Users</a> |
+	<a href={% url 'match:interests' %}>Interests</a>
+</p>
+<h1>{{ user.name }}</h1>
+{% for tag in user.tags.all %}
+	{% if not forloop.first %}, {% endif %}
+	<a href={% url 'match:interest' tag.id %}>{{ tag.name }}</a>
+{% endfor %}
+<br>
+<br>
+{% for distance in user.closer %}
+	{% if not forloop.first %}, {% endif %}
+	<a href="{{ distance.to_user.id }}">{{ distance.to_user.name }}</a> ({{ distance.d | floatformat:1 }})
+{% endfor %}

@@ -1,0 +1,16 @@
+<p>
+	<a href={% url 'match:home' %}>Home</a> |
+	<a href={% url 'match:users' %}>Users</a> |
+	<a href={% url 'match:interests' %}>Interests</a>
+</p>
+<h1>{{ users.all.count }} Awesome users</h1>
+{% for user in users %}
+	<p>
+		<a href="/users/{{ user.id }}">{{ user.name }}</a>
+		<br>
+		{% for tag in user.tags.all %}
+			{% if not forloop.first %}, {% endif %}
+			{{ tag.name }}
+		{% endfor %}
+	</p>
+{% endfor %}
