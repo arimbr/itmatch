@@ -23,7 +23,8 @@ class User(models.Model):
 	distances = models.ManyToManyField('Distance')
 
 	def closer(self):
-		return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
+		#return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
+		return self.distances.exclude(to_user=self).order_by('d')[:5]
 
 	def __unicode__(self):
 		return self.name
