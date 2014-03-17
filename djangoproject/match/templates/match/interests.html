@@ -4,7 +4,7 @@
 	<a href={% url 'match:interests' %}>Interests</a>
 </p>
 <h1>{{tags.all.count}} Interests</h1>
-{% for tag in tags %}
+{% for tag in tags|dictsortreversed:"users.count" %}
 	<p>
 	<a href='{{tag.id}}'>{{ tag.name }}</a>
 	 ({{ tag.users.count }})
