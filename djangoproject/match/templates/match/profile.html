@@ -1,0 +1,14 @@
+{% extends "match/base.html" %}
+{% block content %}
+<h1>{{ profile.name }}</h1>
+{% for tag in profile.tags.all %}
+	{% if not forloop.first %}, {% endif %}
+	<a href={% url 'match:interest' tag.id %}>{{ tag.name }}</a>
+{% endfor %}
+<br>
+<br>
+{% for distance in profile.closer %}
+	{% if not forloop.first %}, {% endif %}
+	<a href="{{ distance.to_profile.id }}">{{ distance.to_profile.name }}</a> ({{ distance.d | floatformat:1 }})
+{% endfor %}
+{% endblock %}
