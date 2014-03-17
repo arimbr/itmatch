@@ -19,46 +19,12 @@ class Distance(models.Model):
 
 class Profile(models.Model):
 	name = models.CharField(max_length=20) #unique=True
-	tags = models.ManyToManyField('Tag', blank=True, null=True, related_name = 'tags')
-	distances = models.ManyToManyField('Distance',blank=True, null=True)
+	tags = models.ManyToManyField('Tag', blank=True, null=True, related_name = 'profiles')
+	distances = models.ManyToManyField('Distance', blank=True, null=True)
 
 	def closer(self):
 		#return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
 		return self.distances.exclude(to_profile=self).order_by('d')[:5]
-
-	def tanimoto(self, u1, u2):
-		"""
-		u1, u2 are user instances from a queryset
-		returns number between 0.0 and 1.0
-		"""
-		t1 = u1.tags.all()
-		t2 = u2.tags.all()
-
-		c1 = len(t1)
-		c2 = len(t2)
-		shr = len(set(t1).intersection(t2))
-
-		try:
-			return 1 - float(shr)/(c1 + c2 - shr)
-		except ZeroDivisionError:
-			return 1.0
-
-	def save_distances(self):
-		profiles = Profile.objects.all()
-		distances = []
-
-		for to_profile in profiles:
-			d = self.tanimoto(self, to_profile)
-
-			distance = Distance.objects.create(from_profile=self, to_profile=to_profile, d=d)
-			distances.append(distance)
-
-		self.distances.add(*distances)
-
-	def save(self, *args, **kwargs):
-
-		super(Profile, self).save(*args, **kwargs)
-		self.save_distances()
 
 	def __unicode__(self):
 		return self.name

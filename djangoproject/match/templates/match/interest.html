@@ -1,10 +1,8 @@
-<p>
-	<a href={% url 'match:home' %}>Home</a> |
-	<a href={% url 'match:profiles' %}>Profiles</a> |
-	<a href={% url 'match:interests' %}>Interests</a>
-</p>
+{% extends "match/base.html" %}
+{% block content %}
 <h1>{{ tag.name }}</h1>
 {% for profile in tag.profiles.all %}
 	{% if not forloop.first %}, {% endif %}
 	<a href="{% url 'match:profile' profile.id %}">{{ profile.name }}</a>
 {% endfor %}
+{% endblock %}

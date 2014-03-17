@@ -35,3 +35,28 @@ def interest(request, tag_id):
 	return render(request, 'match/interest.html', {
 		'tag': tag,
 	})
+
+def register(request):
+
+	if request.method == "POST":
+
+		name = request.POST["name"]
+		selected_tags_ids = request.POST.getlist("tag")
+
+		profile = Profile.objects.create(name=name)
+		tags = Tag.objects.filter(id__in=selected_tags_ids)
+		profile.tags.add(*tags)
+
+		#selected tags will be a list of ids taken from the value input attribute.
+		#For a checkbox it contains those checked
+		#tag = Tag.objects.get(id=selected_tags[0])
+
+		return HttpResponseRedirect('/profiles')
+
+	else:
+
+		tags = Tag.objects.all()
+
+		return render(request, 'match/register.html', {
+			'tags': tags,
+		})

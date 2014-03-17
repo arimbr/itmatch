@@ -1,8 +1,5 @@
-<p>
-	<a href={% url 'match:home' %}>Home</a> |
-	<a href={% url 'match:profiles' %}>Profiles</a> |
-	<a href={% url 'match:interests' %}>Interests</a>
-</p>
+{% extends "match/base.html" %}
+{% block content %}
 <h1>3 Good friends</h1>
 <quote>"We care about what you want to learn more than what you already know."</quote>
 <p>- Ari, Joakim, Sajjad</p>
@@ -11,3 +8,4 @@
 <p>First, we will focus on students interested in programming in the Metropolia Leppavaara campus.</p>
 <p>All that for you to form groups, build something together and have fun learning.</p>
 <br>
+{% endblock %}
