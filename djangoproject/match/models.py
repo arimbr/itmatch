@@ -10,29 +10,64 @@ class Tag(models.Model):
 		return self.name
 
 class Distance(models.Model):
-	from_user = models.ForeignKey('User', related_name = 'from_user') # 'User' lets Django know that the reference may still be under construction.
-	to_user = models.ForeignKey('User', related_name = 'to_user') #
+	from_profile = models.ForeignKey('Profile', related_name = 'from_profile') # 'Profile' lets Django know that the reference may still be under construction.
+	to_profile = models.ForeignKey('Profile', related_name = 'to_profile') #
 	d = models.FloatField()
 
 	def __unicode__(self):
-		return "{0:.2f} to {1}".format(self.d, self.to_user)
+		return "{0:.2f} to {1}".format(self.d, self.to_profile)
 
-class User(models.Model):
+class Profile(models.Model):
 	name = models.CharField(max_length=20) #unique=True
-	tags = models.ManyToManyField('Tag', related_name = 'users')
-	distances = models.ManyToManyField('Distance')
+	tags = models.ManyToManyField('Tag', blank=True, null=True, related_name = 'tags')
+	distances = models.ManyToManyField('Distance',blank=True, null=True)
 
 	def closer(self):
 		#return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
-		return self.distances.exclude(to_user=self).order_by('d')[:5]
+		return self.distances.exclude(to_profile=self).order_by('d')[:5]
+
+	def tanimoto(self, u1, u2):
+		"""
+		u1, u2 are user instances from a queryset
+		returns number between 0.0 and 1.0
+		"""
+		t1 = u1.tags.all()
+		t2 = u2.tags.all()
+
+		c1 = len(t1)
+		c2 = len(t2)
+		shr = len(set(t1).intersection(t2))
+
+		try:
+			return 1 - float(shr)/(c1 + c2 - shr)
+		except ZeroDivisionError:
+			return 1.0
+
+	def save_distances(self):
+		profiles = Profile.objects.all()
+		distances = []
+
+		for to_profile in profiles:
+			d = self.tanimoto(self, to_profile)
+
+			distance = Distance.objects.create(from_profile=self, to_profile=to_profile, d=d)
+			distances.append(distance)
+
+		self.distances.add(*distances)
+
+	def save(self, *args, **kwargs):
+
+		super(Profile, self).save(*args, **kwargs)
+		self.save_distances()
 
 	def __unicode__(self):
 		return self.name
 
+
 #http://stackoverflow.com/questions/949268/django-accessing-the-model-instance-from-within-modeladmin
-class UserForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
-		super(UserForm, self).__init__(*args, **kwargs)
+		super(ProfileForm, self).__init__(*args, **kwargs)
 		self.fields['tags'].queryset = self.instance.tags.all()
 		self.fields['distances'].queryset = self.instance.distances.all().filter(d__lt=1).order_by('d')
 
@@ -53,4 +88,4 @@ class UserForm(forms.ModelForm):
 
 #Rename attributes and add methods thinking of api lookups
 #We want to call something like ari.distances.all().order_by("d")
-#that returns an ordered list of users
+#that returns an ordered list of profiles

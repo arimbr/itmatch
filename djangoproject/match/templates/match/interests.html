@@ -1,12 +1,12 @@
 <p>
 	<a href={% url 'match:home' %}>Home</a> |
-	<a href={% url 'match:users' %}>Users</a> |
+	<a href={% url 'match:profiles' %}>Profiles</a> |
 	<a href={% url 'match:interests' %}>Interests</a>
 </p>
 <h1>{{tags.all.count}} Interests</h1>
 {% for tag in tags %}
 	<p>
 	<a href='{{tag.id}}'>{{ tag.name }}</a>
-	 ({{ tag.users.count }})
+	 ({{ tag.profiles.count }})
 	</p>
 {% endfor %}

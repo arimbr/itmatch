@@ -2,24 +2,24 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from match.models import User, Distance, Tag
+from match.models import Profile, Distance, Tag
 
 def home(request):
 
 	return render(request, 'match/home.html', {})
 
-def users(request):
+def profiles(request):
 
-	users = User.objects.all()
+	profiles = Profile.objects.all()
 
-	return render(request, 'match/users.html', {
-		'users': users,
+	return render(request, 'match/profiles.html', {
+		'profiles': profiles,
 	})
 
-def user(request, user_id):
-	user = get_object_or_404(User, pk=user_id)
-	return render(request, 'match/user.html', {
-		'user': user,
+def profile(request, profile_id):
+	profile = get_object_or_404(Profile, pk=profile_id)
+	return render(request, 'match/profile.html', {
+		'profile': profile,
 	})
 
 def interests(request):
