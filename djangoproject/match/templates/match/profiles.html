@@ -1,6 +1,7 @@
 {% extends "match/base.html" %}
+
 {% block content %}
-<h1>{{ profiles.all.count }} Awesome profiles</h1>
+<h1>{{ profiles.all.count }} Profiles</h1>
 {% for profile in profiles %}
 	<p>
 		<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>

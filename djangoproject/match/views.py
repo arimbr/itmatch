@@ -42,14 +42,13 @@ def register(request):
 
 		name = request.POST["name"]
 		selected_tags_ids = request.POST.getlist("tag")
+		#selected tags ids will be a list of ids taken from the value input attribute
+		#For a checkbox it contains those checked
+		#tag = Tag.objects.get(id=selected_tags[0])
 
 		profile = Profile.objects.create(name=name)
 		tags = Tag.objects.filter(id__in=selected_tags_ids)
 		profile.tags.add(*tags)
-
-		#selected tags will be a list of ids taken from the value input attribute.
-		#For a checkbox it contains those checked
-		#tag = Tag.objects.get(id=selected_tags[0])
 
 		return HttpResponseRedirect('/profiles')
 
