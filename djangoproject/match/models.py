@@ -2,6 +2,7 @@ from django.db import models
 from django import forms
 
 from django.db.models.signals import * #selective import
+from django.db.transaction import commit_on_success
 
 # ------------ Utils ---------------------
 # Import better
@@ -23,6 +24,8 @@ def tanimoto(u1, u2):
 	except ZeroDivisionError:
 		return 1.0
 
+# http://stackoverflow.com/questions/3395236/aggregating-saves-in-django
+@commit_on_success
 def load_distances(from_profile):
 	profiles = Profile.objects.all()
 	distances = []

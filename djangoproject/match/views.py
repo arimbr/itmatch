@@ -48,7 +48,7 @@ def register(request):
 
 		profile = Profile.objects.create(name=name)
 		tags = Tag.objects.filter(id__in=selected_tags_ids)
-		profile.tags.add(*tags)
+		profile.tags.add(*tags) # in models tags_changed() signal
 
 		return HttpResponseRedirect('/profiles')
 
