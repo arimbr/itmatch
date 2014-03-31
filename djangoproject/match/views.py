@@ -50,7 +50,7 @@ def register(request):
 		tags = Tag.objects.filter(id__in=selected_tags_ids)
 		profile.tags.add(*tags) # in models tags_changed() signal
 
-		return HttpResponseRedirect('/profiles')
+		return HttpResponseRedirect('/profiles/' + '%s'%profile.id )
 
 	else:
 
