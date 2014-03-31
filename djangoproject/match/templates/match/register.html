@@ -1,23 +1,27 @@
 {% extends "match/base.html" %}
 
 {% block content %}
-<h1>Register</h1>
+<h1>Who do you wanna be?</h1>
 
-<form action="{% url 'match:register' %}" method="post">
-{% csrf_token %}
-<label for="name">Name:</lable>
-<br />
-<input type="text" name="name" id="name" />
-<br />
+<div class="left">
+	<form action="{% url 'match:register' %}" method="post">
+		{% csrf_token %}
+		<label for="name">Profile:</label>
+		<br />
+		<input type="text" name="name" id="name" />
+		<br />
+		
+		<br />
+		<span>Interests:</span>
+		<br />
 
-<br />
-<span>Interests:</span>
-<br />
-{% for tag in tags.all %}
-    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
-    <label for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
-{% endfor %}
-<br />
-<input type="submit" value="Submit" />
-</form>
+		{% for tag in tags.all %}
+		    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
+		    <label for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
+		{% endfor %}
+		<br />
+
+		<input type="submit" value="Register" />
+	</form>
+</div>
 {% endblock %}
