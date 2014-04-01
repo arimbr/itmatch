@@ -24,3 +24,4 @@ git commit -a 		  			automatically "rm" files in the index that have been remove
 git fetch --all					downloads the latest from remote without trying to merge anything
 git reset --hard origin/master			resets the master branch to what you just fetched
 ***
+git update-index --assume-unchanged PathOfFile          untracking the PathOfFile
