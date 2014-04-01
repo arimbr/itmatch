@@ -1,0 +1,15 @@
+{% extends "match/base.html" %}
+
+{% block content %}
+<h1>{{ profiles.all.count }} Profiles</h1>
+{% for profile in profiles %}
+	<p>
+		<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>
+		<br>
+		{% for tag in profile.tags.all %}
+			{% if not forloop.first %}, {% endif %}
+			{{ tag.name }}
+		{% endfor %}
+	</p>
+{% endfor %}
+{% endblock %}

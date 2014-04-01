@@ -1,18 +1,18 @@
 #python manage.py shell
 #execfile('loadata.py')
 
-from match.models import User, Tag, Distance
+from match.models import Profile, Tag, Distance
 
 from utils.jsontools import read_json
 
-users = read_json("utils/data/users.json")
+profiles = read_json("utils/data/users.json")
 
 tags = read_json("utils/data/tags.json")
 
 #tanimoto
 def tanimoto(u1, u2):
 	"""
-	u1, u2 are user instances from a queryset
+	u1, u2 are profile instances from a queryset
 	returns number between 0.0 and 1.0
 	"""
 	t1 = u1.tags.all()
@@ -32,10 +32,10 @@ def load_tags(tags, Tag):
 	for tag in tags:
 		Tag.objects.create(name=tag)
 
-#Populate User table
-def load_users(users, User, Tag):
-	for user, tags in users.iteritems():
-		u = User.objects.create(name=user)
+#Populate Profile table
+def load_profiles(profiles, Profile, Tag):
+	for profile, tags in profiles.iteritems():
+		u = Profile.objects.create(name=profile)
 		ts = []
 
 		for tag in tags:
@@ -45,18 +45,21 @@ def load_users(users, User, Tag):
 		u.tags.add(*ts)
 
 #Populate Distance table
-def load_distances(User, Distance):
-	users = User.objects.all()
-	for from_user in users:
+def load_distances(Profile, Distance):
+	profiles = Profile.objects.all()
+	for from_profile in profiles:
 		distances = []
 
-		for to_user in users:
-			d = tanimoto(from_user, to_user)
-			distance = Distance.objects.create(from_user=from_user, to_user=to_user, d=d)
+		for to_profile in profiles:
+			d = tanimoto(from_profile, to_profile)
+			distance = Distance.objects.create(from_profile=from_profile, to_profile=to_profile, d=d)
 			distances.append(distance)
 
-		from_user.distances.add(*distances)
+		from_profile.distances.add(*distances)
 
 load_tags(tags, Tag)
-load_users(users, User, Tag)
-load_distances(User, Distance)
+print "tags loaded"
+load_profiles(profiles, Profile, Tag)
+print "profiles loaded"
+load_distances(Profile, Distance)
+print "distances loaded"

@@ -2,24 +2,24 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from match.models import User, Distance, Tag
+from match.models import Profile, Distance, Tag
 
 def home(request):
 
 	return render(request, 'match/home.html', {})
 
-def users(request):
+def profiles(request):
 
-	users = User.objects.all()
+	profiles = Profile.objects.all()
 
-	return render(request, 'match/users.html', {
-		'users': users,
+	return render(request, 'match/profiles.html', {
+		'profiles': profiles,
 	})
 
-def user(request, user_id):
-	user = get_object_or_404(User, pk=user_id)
-	return render(request, 'match/user.html', {
-		'user': user,
+def profile(request, profile_id):
+	profile = get_object_or_404(Profile, pk=profile_id)
+	return render(request, 'match/profile.html', {
+		'profile': profile,
 	})
 
 def interests(request):
@@ -35,3 +35,27 @@ def interest(request, tag_id):
 	return render(request, 'match/interest.html', {
 		'tag': tag,
 	})
+
+def register(request):
+
+	if request.method == "POST":
+
+		name = request.POST["name"]
+		selected_tags_ids = request.POST.getlist("tag")
+		#selected tags ids will be a list of ids taken from the value input attribute
+		#For a checkbox it contains those checked
+		#tag = Tag.objects.get(id=selected_tags[0])
+
+		profile = Profile.objects.create(name=name)
+		tags = Tag.objects.filter(id__in=selected_tags_ids)
+		profile.tags.add(*tags) # in models tags_changed() signal
+
+		return HttpResponseRedirect('/profiles/' + '%s'%profile.id )
+
+	else:
+
+		tags = Tag.objects.all()
+
+		return render(request, 'match/register.html', {
+			'tags': tags,
+		})

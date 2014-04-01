@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p>
 	<a href={% url 'match:home' %}>Home</a> |
 	<a href={% url 'match:users' %}>Users</a> |
@@ -11,3 +12,14 @@
 <p>First, we will focus on students interested in programming in the Metropolia Leppavaara campus.</p>
 <p>All that for you to form groups, build something together and have fun learning.</p>
 <br>
+=======
+{% extends "match/base.html" %}
+
+{% block content %}
+<h1>IT Match</h1>
+<p>Connect with other students in Leppavaara campus with similar IT interests.</p>
+<p>Build something together and get closer to working life.</p>
+<p><a href="/register">Get started</a></p>
+<br>
+{% endblock %}
+>>>>>>> develop
