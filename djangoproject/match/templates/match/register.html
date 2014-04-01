@@ -21,7 +21,7 @@
 		{% endfor %}
 		<br />
 
-		<input type="submit" value="Register" />
+		<input type="submit" value="Register" onclick="this.disabled=true,this.form.submit();" />
 	</form>
 </div>
 {% endblock %}
