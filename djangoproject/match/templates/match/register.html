@@ -6,11 +6,11 @@
 <div class="left">
 	<form action="{% url 'match:register' %}" method="post">
 		{% csrf_token %}
-		<label for="name">Profile:</label>
+		<label for="name">Name:</label>
 		<br />
 		<input type="text" name="name" id="name" />
 		<br />
-		
+
 		<br />
 		<span>Interests:</span>
 		<br />
