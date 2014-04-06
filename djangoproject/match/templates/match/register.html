@@ -1,27 +1,35 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:interests' %}>Interests</a></li>
+	<li class="active"><a href={% url 'match:register' %}>Register</a></li>
+{% endblock %}
+
 {% block content %}
-<h1>Who do you wanna be?</h1>
-
-<div class="left">
-	<form action="{% url 'match:register' %}" method="post">
+	<h2>Connect with other students!</h2>
+	<form class="row marketing left" action="{% url 'match:register' %}" method="post">
 		{% csrf_token %}
-		<label for="name">Name:</label>
-		<br />
-		<input type="text" name="name" id="name" />
-		<br />
-
-		<br />
-		<span>Interests:</span>
-		<br />
-
-		{% for tag in tags.all %}
-		    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
-		    <label for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
-		{% endfor %}
-		<br />
-
-		<input type="submit" value="Register" onclick="this.disabled=true,this.form.submit();" />
+		<div class="col-lg-6">
+			<br />
+			<label for="name">Profile:</label>
+			<br />
+			<input type="text" class="form-control" name="name" id="name" placeholder="Name" required autofocus />
+			<input type="text" class="form-control" name="email" id="email" placeholder="Metropolia email" required/>
+			<label class="checkbox">
+          		<input type="checkbox" value="remember-me" checked> Notify me at launch
+        	</label>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="this.disabled=true,this.form.submit();">Register</button>
+		</div>
+		<div class="col-lg-6">
+			<br />
+			<label>Interests:</label>
+			<br />
+			{% for tag in tags.all %}
+			    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
+			    <label for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
+			{% endfor %}
+		</div>
 	</form>
-</div>
 {% endblock %}

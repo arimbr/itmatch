@@ -1,0 +1,4 @@
+move to djangoproject and activate virtual environment
+
+cd djangoproject
+source venv/source/activate

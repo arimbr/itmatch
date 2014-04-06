@@ -1,26 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<title>IT Match: connect IT students in Metropolia</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<style>
+	/* Space out content a bit */
 	body {
-		margin:50px 0px;
-		padding:0px;
-		text-align:center;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
 	}
-	
+
+	/* Everything but the jumbotron gets side spacing for mobile first views */
+	.header,
+	.footer {
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+
+	/* Custom page header */
+	.header {
+	  border-bottom: 1px solid #e5e5e5;
+	}
+	/* Make the masthead heading the same height as the navigation */
+	.header h3 {
+	  padding-bottom: 19px;
+	  margin-top: 0;
+	  margin-bottom: 0;
+	  line-height: 40px;
+	}
+
+	.text-muted {
+	  	visibility: hidden;
+	  }
+
+	/* Custom page footer */
+	.footer {
+	  padding-top: 19px;
+	  color: #777;
+	  border-top: 1px solid #e5e5e5;
+	}
+
+	/* Customize container */
+	@media (min-width: 768px) {
+	  .container {
+	    max-width: 730px;
+	  }
+	  .text-muted {
+	  	visibility: visible;
+	  }
+	}
+
+	/* Main marketing message and sign up button */
+	.jumbotron {
+	  text-align: center;
+	  border-bottom: 1px solid #e5e5e5;
+	}
+
+
+	/* Responsive: Portrait tablets and up */
+	@media screen and (min-width: 768px) {
+	  /* Remove the padding we set earlier */
+	  .header,
+	  .footer {
+	    padding-right: 0;
+	    padding-left: 0;
+	  }
+	  /* Space out the masthead */
+	  .header {
+	    margin-bottom: 30px;
+	  }
+	  /* Remove the bottom border on the jumbotron for visual effect */
+	  .jumbotron {
+	    border-bottom: 0;
+	  }
+	}
 	.left {
-		width: 200px;
-		padding-left: 20px;
-		margin: auto;
 		text-align: left;
 	}
 	</style>
 </head>
 <body>
-	<p>
-		<a href={% url 'match:home' %}>Home</a> |
-		<a href={% url 'match:profiles' %}>Profiles</a> |
-		<a href={% url 'match:interests' %}>Interests</a> |
-		<a href={% url 'match:register' %}>Register</a>
-	</p>
-	{% block content %}
-	{% endblock %}
+	<div class="container">
+    	<div class="header">
+			<ul class="nav nav-pills pull-right">
+				{% block navbar %}
+				{% endblock %}
+			</ul>
+			<h3 class="text-muted">IT Match</h3>
+		</div>
+		<div class="jumbotron">
+			{% block content %}
+			{% endblock %}
+		</div>
+	    <div class="footer">
+    		<p>&#64;Metropolia 2014</p>
+    	</div>
+	</div> <!-- container -->
 </body>
+</html>

@@ -1,9 +1,14 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li class="active"><a href={% url 'match:home' %}>Home</a></li>
+	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:interests' %}>Interests</a></li>
+	<li><a href={% url 'match:register' %}>Register</a></li>
+{% endblock %}
+
 {% block content %}
-<h1>IT Match</h1>
-<p>Connect with other students in Leppavaara campus with similar IT interests.</p>
-<p>Build something together and get closer to working life.</p>
-<p><a href="/register">Get started</a></p>
-<br>
+	<h1>IT Match</h1>
+	<p class="lead">Connect with other students in Leppavaara campus with similar IT interests. Build something together and get closer to working life.</p>
+	<p><a class="btn btn-lg btn-success" href="/register" role="button">Get started</a></p>
 {% endblock %}

@@ -1,11 +1,18 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li class="active"><a href={% url 'match:interests' %}>Interests</a></li>
+	<li><a href={% url 'match:register' %}>Register</a></li>
+{% endblock %}
+
 {% block content %}
-<h1>{{tags.all.count}} Interests</h1>
-{% for tag in tags|dictsortreversed:"profiles.count" %}
-	<p>
-	<a href='{{tag.id}}'>{{ tag.name }}</a>
-	 ({{ tag.profiles.count }})
-	</p>
-{% endfor %}
+	<h2>{{tags.all.count}} Interests</h2>
+	{% for tag in tags|dictsortreversed:"profiles.count" %}
+		<p>
+		<a href='{{tag.id}}'>{{ tag.name }}</a>
+		({{ tag.profiles.count }})
+		</p>
+	{% endfor %}
 {% endblock %}

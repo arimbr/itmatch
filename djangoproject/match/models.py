@@ -20,9 +20,9 @@ def tanimoto(u1, u2):
 	shr = len(set(t1).intersection(t2))
 
 	try:
-		return 1 - float(shr)/(c1 + c2 - shr)
+		return float(shr)/(c1 + c2 - shr)
 	except ZeroDivisionError:
-		return 1.0
+		return 0.0
 
 # http://stackoverflow.com/questions/3395236/aggregating-saves-in-django
 @commit_on_success
@@ -67,7 +67,7 @@ class Profile(models.Model):
 
 	def closer(self):
 		#return self.distances.filter(d__lte=0.5).exclude(to_user=self).order_by('d')[:5]
-		return self.distances.exclude(to_profile=self).order_by('d')[:5]
+		return self.distances.exclude(to_profile=self).filter(d__gt=0).order_by('d').reverse()[:5]
 
 	def __unicode__(self):
 		return self.name
@@ -80,7 +80,7 @@ class ProfileForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ProfileForm, self).__init__(*args, **kwargs)
 		self.fields['tags'].queryset = self.instance.tags.all()
-		self.fields['distances'].queryset = self.instance.distances.all().filter(d__lt=1).order_by('d')
+		self.fields['distances'].queryset = self.instance.distances.all().filter(d__gt=0).order_by('d')
 
 
 # ------------- Signals ------------------------

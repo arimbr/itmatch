@@ -1,15 +1,21 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li class="active"><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:interests' %}>Interests</a></li>
+	<li><a href={% url 'match:register' %}>Register</a></li>
+{% endblock %}
+
 {% block content %}
-<h1>{{ profiles.all.count }} Profiles</h1>
-{% for profile in profiles %}
-	<p>
-		<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>
-		<br>
-		{% for tag in profile.tags.all %}
-			{% if not forloop.first %}, {% endif %}
-			{{ tag.name }}
-		{% endfor %}
-	</p>
-{% endfor %}
+	<h2>{{ profiles.all.count }} Profiles</h2>
+	{% for profile in profiles %}
+		<p>
+			<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>
+			<br>
+			{% for tag in profile.tags.all %}
+				{{ tag.name }}{% if not forloop.last %},{% endif %}
+			{% endfor %}
+		</p>
+	{% endfor %}
 {% endblock %}
