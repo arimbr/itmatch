@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+import datetime
 
 from django.db.models.signals import * #selective import
 from django.db.transaction import commit_on_success
@@ -62,6 +63,8 @@ class Distance(models.Model):
 
 class Profile(models.Model):
 	name = models.CharField(max_length=20) #unique=True
+	email = models.EmailField()
+	date = models.DateTimeField(auto_now=True)
 	tags = models.ManyToManyField('Tag', blank=True, null=True, related_name = 'profiles')
 	distances = models.ManyToManyField('Distance', blank=True, null=True)
 

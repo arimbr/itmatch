@@ -1,35 +1,31 @@
 {% extends "match/base.html" %}
 
-{% block navbar %}
-	<li><a href={% url 'match:home' %}>Home</a></li>
-	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
-	<li><a href={% url 'match:interests' %}>Interests</a></li>
-	<li class="active"><a href={% url 'match:register' %}>Register</a></li>
-{% endblock %}
-
 {% block content %}
 	<h2>Connect with other students!</h2>
-	<form class="row marketing left" action="{% url 'match:register' %}" method="post">
+	<form class="row left" action="{% url 'match:register' %}" method="post">
 		{% csrf_token %}
-		<div class="col-lg-6">
-			<br />
-			<label for="name">Profile:</label>
-			<br />
-			<input type="text" class="form-control" name="name" id="name" placeholder="Name" required autofocus />
-			<input type="text" class="form-control" name="email" id="email" placeholder="Metropolia email" required/>
-			<label class="checkbox">
-          		<input type="checkbox" value="remember-me" checked> Notify me at launch
-        	</label>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="this.disabled=true,this.form.submit();">Register</button>
-		</div>
-		<div class="col-lg-6">
-			<br />
-			<label>Interests:</label>
-			<br />
-			{% for tag in tags.all %}
-			    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
-			    <label for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
-			{% endfor %}
-		</div>
+		<br />
+		<label for="name">Full name:</label>
+		<br />
+		<input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ name }}" autofocus />
+		<br />
+		<label for="email">Metropolia email:</label>
+		<br />
+		<input type="text" class="form-control" name="email" id="email" placeholder="" value="{{ email }}"/>
+		<label class="checkbox">
+      		<input type="checkbox" value="remember-me" checked><span class="normal">Notify me at launch</span>
+    	</label>
+
+    	<br />
+    	<label>Interests: <span class="error">{{ errors }}</span></label>
+		<br />
+		{% for tag in tags.all %}
+		    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
+		    <label class="normal" for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
+		{% endfor %}
+		<br />
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="this.disabled=true,this.form.submit();">Sign up</button>
+		<br />
 	</form>
 {% endblock %}

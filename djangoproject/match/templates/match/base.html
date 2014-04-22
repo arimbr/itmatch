@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
 	<title>IT Match: connect IT students in Metropolia</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<style>
+	html {
+		overflow-y: scroll;
+	}
 	/* Space out content a bit */
 	body {
 	  padding-top: 20px;
@@ -13,13 +17,14 @@
 
 	/* Everything but the jumbotron gets side spacing for mobile first views */
 	.header,
-	.footer {
-	  padding-right: 15px;
-	  padding-left: 15px;
+	.container {
+	  padding-right: 0px;
+	  padding-left: 0px;
 	}
 
 	/* Custom page header */
 	.header {
+	  height: 60px;
 	  border-bottom: 1px solid #e5e5e5;
 	}
 	/* Make the masthead heading the same height as the navigation */
@@ -30,41 +35,54 @@
 	  line-height: 40px;
 	}
 
-	.text-muted {
-	  	visibility: hidden;
-	  }
-
 	/* Custom page footer */
 	.footer {
-	  padding-top: 19px;
+	  padding: 19px 15px 0px 15px;
 	  color: #777;
 	  border-top: 1px solid #e5e5e5;
-	}
-
-	/* Customize container */
-	@media (min-width: 768px) {
-	  .container {
-	    max-width: 730px;
-	  }
-	  .text-muted {
-	  	visibility: visible;
-	  }
 	}
 
 	/* Main marketing message and sign up button */
 	.jumbotron {
 	  text-align: center;
+	  margin-bottom: 0px;
 	  border-bottom: 1px solid #e5e5e5;
+	}
+	.container .jumbotron {
+		border-radius: 0px;
+	}
+
+	.text-muted, .forkme {
+		visibility: hidden;
+	}
+
+	/* Customize container */
+	@media (min-width: 668px) {
+	  .container {
+	    max-width: 640px;
+	  }
+	  .text-muted {
+		visibility: visible;
+	  }
+	  .container .jumbotron {
+		border-radius: 6px;
+	  }
+	}
+
+	@media (min-width: 850px) {
+		.forkme {
+			visibility: visible;
+	}
 	}
 
 
 	/* Responsive: Portrait tablets and up */
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 668px) {
 	  /* Remove the padding we set earlier */
 	  .header,
 	  .footer {
-	    padding-right: 0;
-	    padding-left: 0;
+	    padding-right: 15;
+	    padding-left: 15;
 	  }
 	  /* Space out the masthead */
 	  .header {
@@ -73,19 +91,35 @@
 	  /* Remove the bottom border on the jumbotron for visual effect */
 	  .jumbotron {
 	    border-bottom: 0;
+	    margin-bottom: 30px;
 	  }
 	}
 	.left {
 		text-align: left;
 	}
+	.row {
+		margin: auto;
+		max-width: 300px;
+	}
+	.normal {
+		font-weight: normal;
+	}
+	.error {
+		font-weight: normal;
+		color: red;
+	}
 	</style>
 </head>
 <body>
+	{% block forkme %}
+	{% endblock %}
 	<div class="container">
     	<div class="header">
 			<ul class="nav nav-pills pull-right">
-				{% block navbar %}
-				{% endblock %}
+				<li><a href={% url 'match:home' %}>Home</a></li>
+				<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+				<li><a href={% url 'match:interests' %}>Groups</a></li>
+				<li><a href={% url 'match:register' %}>Signup</a></li>
 			</ul>
 			<h3 class="text-muted">IT Match</h3>
 		</div>
@@ -94,7 +128,7 @@
 			{% endblock %}
 		</div>
 	    <div class="footer">
-    		<p>&#64;Metropolia 2014</p>
+	    	<p>@Metropolia 2014
     	</div>
 	</div> <!-- container -->
 </body>

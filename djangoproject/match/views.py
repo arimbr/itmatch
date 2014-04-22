@@ -40,17 +40,28 @@ def register(request):
 
 	if request.method == "POST":
 
-		name = request.POST["name"]
+		name = request.POST["name"] or "Anonymous"
+		email = request.POST["email"]
 		selected_tags_ids = request.POST.getlist("tag")
 		#selected tags ids will be a list of ids taken from the value input attribute
 		#For a checkbox it contains those checked
 		#tag = Tag.objects.get(id=selected_tags[0])
 
-		profile = Profile.objects.create(name=name)
-		tags = Tag.objects.filter(id__in=selected_tags_ids)
-		profile.tags.add(*tags) # in models tags_changed() signal
+		if not selected_tags_ids:
+			errors = "select some interests"
+			tags = Tag.objects.all()
+			return render(request, 'match/register.html', {
+				'tags': tags,
+				'name': name,
+				'email': email,
+				'errors': errors,
+			})
 
-		return HttpResponseRedirect('/profiles/' + '%s'%profile.id )
+		profile = Profile.objects.create(name=name, email=email)
+		tags = Tag.objects.filter(id__in=selected_tags_ids)
+		profile.tags.add(*tags) # in models tags_changed() signal to add distances
+
+		return HttpResponseRedirect('/profiles/' + '%s' % profile.id )
 
 	else:
 

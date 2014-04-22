@@ -1,18 +1,12 @@
 {% extends "match/base.html" %}
 
-{% block navbar %}
-	<li><a href={% url 'match:home' %}>Home</a></li>
-	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
-	<li><a href={% url 'match:interests' %}>Interests</a></li>
-	<li><a href={% url 'match:register' %}>Register</a></li>
-{% endblock %}
-
 {% block content %}
 	<h2>{{ profile.name }}</h2>
 	{% for tag in profile.tags.all %}
 		<a href={% url 'match:interest' tag.id %}>{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
 	{% endfor %}
-	<br>
+	<br><br>
+	<span>Similar profiles:</span>
 	<br>
 	{% for distance in profile.closer %}
 		<a href="{{ distance.to_profile.id }}">{{ distance.to_profile.name }}</a> ({{ distance.d | floatformat:1 }}){% if not forloop.last %}, {% endif %}
