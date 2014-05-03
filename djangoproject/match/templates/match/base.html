@@ -25,6 +25,7 @@
 	/* Custom page header */
 	.header {
 	  height: 60px;
+	  padding: 0px 8px;
 	  border-bottom: 1px solid #e5e5e5;
 	}
 	/* Make the masthead heading the same height as the navigation */
@@ -40,6 +41,12 @@
 	  padding: 19px 15px 0px 15px;
 	  color: #777;
 	  border-top: 1px solid #e5e5e5;
+	}
+
+	/* Custom block for well */
+	.custom-block {
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	/* Main marketing message and sign up button */
@@ -111,15 +118,11 @@
 	</style>
 </head>
 <body>
-	{% block forkme %}
-	{% endblock %}
 	<div class="container">
     	<div class="header">
 			<ul class="nav nav-pills pull-right">
-				<li><a href={% url 'match:home' %}>Home</a></li>
-				<li><a href={% url 'match:profiles' %}>Profiles</a></li>
-				<li><a href={% url 'match:interests' %}>Groups</a></li>
-				<li><a href={% url 'match:register' %}>Signup</a></li>
+				{% block navbar %}
+				{% endblock %}
 			</ul>
 			<h3 class="text-muted">IT Match</h3>
 		</div>
@@ -129,6 +132,8 @@
 		</div>
 	    <div class="footer">
 	    	<p>@Metropolia 2014
+			<iframe class="pull-right" src="http://ghbtns.com/github-btn.html?user=arimbr&repo=itmatch&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe>
+  			</p>
     	</div>
 	</div> <!-- container -->
 </body>

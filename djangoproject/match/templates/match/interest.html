@@ -1,7 +1,16 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:groups' %}>Groups</a></li>
+	<li><a href={% url 'match:signup' %}>Signup</a></li>
+{% endblock %}
 {% block content %}
-	<h2>{{ tag.name }}</h2>
+	<div class="well well-sm">
+		<h2 class="custom-block">{{ tag.name }}</h2>
+	</div>
+	<h3>Members:</h3>
 	{% for profile in tag.profiles.all %}
 		<a href="{% url 'match:profile' profile.id %}">{{ profile.name }}</a>{% if not forloop.last %}, {% endif %}
 	{% endfor %}

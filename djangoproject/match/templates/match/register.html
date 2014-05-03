@@ -1,8 +1,16 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:groups' %}>Groups</a></li>
+	<li class="active"><a href={% url 'match:signup' %}>Signup</a></li>
+{% endblock %}
 {% block content %}
-	<h2>Connect with other students!</h2>
-	<form class="row left" action="{% url 'match:register' %}" method="post">
+	<div class="well well-sm">
+		<h2 class="custom-block">Get started</h2>
+	</div>
+	<form class="row left" action="{% url 'match:signup' %}" method="post">
 		{% csrf_token %}
 		<br />
 		<label for="name">Full name:</label>
@@ -19,7 +27,7 @@
     	<br />
     	<label>Interests: <span class="error">{{ errors }}</span></label>
 		<br />
-		{% for tag in tags.all %}
+		{% for tag in tags.all|dictsortreversed:"profiles.count" %}
 		    <input type="checkbox" name="tag" id="tag{{ forloop.counter }}" value="{{ tag.id }}" />
 		    <label class="normal" for="tag{{ forloop.counter }}">{{ tag.name }}</label><br />
 		{% endfor %}

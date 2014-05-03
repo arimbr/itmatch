@@ -1,7 +1,15 @@
 {% extends "match/base.html" %}
 
+{% block navbar %}
+	<li><a href={% url 'match:home' %}>Home</a></li>
+	<li class="active"><a href={% url 'match:profiles' %}>Profiles</a></li>
+	<li><a href={% url 'match:groups' %}>Groups</a></li>
+	<li><a href={% url 'match:signup' %}>Signup</a></li>
+{% endblock %}
 {% block content %}
-	<h2>{{ profiles.all.count }} Profiles</h2>
+	<div class="well well-sm">
+		<h2 class="custom-block">{{ profiles.all.count }} Profiles</h2>
+	</div>
 	{% for profile in profiles %}
 		<p>
 			<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>

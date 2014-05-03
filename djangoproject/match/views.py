@@ -22,21 +22,21 @@ def profile(request, profile_id):
 		'profile': profile,
 	})
 
-def interests(request):
+def groups(request):
 	tags = Tag.objects.all()
 
 	return render(request, 'match/interests.html', {
 		'tags': tags,
 	})
 
-def interest(request, tag_id):
+def group(request, tag_id):
 	tag = get_object_or_404(Tag, pk=tag_id)
 
 	return render(request, 'match/interest.html', {
 		'tag': tag,
 	})
 
-def register(request):
+def signup(request):
 
 	if request.method == "POST":
 
