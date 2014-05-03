@@ -10,7 +10,7 @@
 	<div class="well well-sm">
 		<h2 class="custom-block">{{ profiles.all.count }} Profiles</h2>
 	</div>
-	{% for profile in profiles %}
+	{% for profile in profiles|dictsortreversed:"id" %}
 		<p>
 			<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>
 			<br>
