@@ -1,121 +1,12 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
 	<title>IT Match: connect IT students in Metropolia</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<style>
-	html {
-		overflow-y: scroll;
-	}
-	/* Space out content a bit */
-	body {
-	  padding-top: 20px;
-	  padding-bottom: 20px;
-	}
-
-	/* Everything but the jumbotron gets side spacing for mobile first views */
-	.header,
-	.container {
-	  padding-right: 0px;
-	  padding-left: 0px;
-	}
-
-	/* Custom page header */
-	.header {
-	  height: 60px;
-	  padding: 0px 8px;
-	  border-bottom: 1px solid #e5e5e5;
-	}
-	/* Make the masthead heading the same height as the navigation */
-	.header h3 {
-	  padding-bottom: 19px;
-	  margin-top: 0;
-	  margin-bottom: 0;
-	  line-height: 40px;
-	}
-
-	/* Custom page footer */
-	.footer {
-	  padding: 19px 15px 0px 15px;
-	  color: #777;
-	  border-top: 1px solid #e5e5e5;
-	}
-
-	/* Custom block for well */
-	.custom-block {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-
-	/* Main marketing message and sign up button */
-	.jumbotron {
-	  text-align: center;
-	  margin-bottom: 0px;
-	  border-bottom: 1px solid #e5e5e5;
-	}
-	.container .jumbotron {
-		border-radius: 0px;
-	}
-
-	.text-muted, .forkme {
-		visibility: hidden;
-	}
-
-	/* Customize container */
-	@media (min-width: 668px) {
-	  .container {
-	    max-width: 640px;
-	  }
-	  .text-muted {
-		visibility: visible;
-	  }
-	  .container .jumbotron {
-		border-radius: 6px;
-	  }
-	}
-
-	@media (min-width: 850px) {
-		.forkme {
-			visibility: visible;
-	}
-	}
-
-
-	/* Responsive: Portrait tablets and up */
-	@media screen and (min-width: 668px) {
-	  /* Remove the padding we set earlier */
-	  .header,
-	  .footer {
-	    padding-right: 15;
-	    padding-left: 15;
-	  }
-	  /* Space out the masthead */
-	  .header {
-	    margin-bottom: 30px;
-	  }
-	  /* Remove the bottom border on the jumbotron for visual effect */
-	  .jumbotron {
-	    border-bottom: 0;
-	    margin-bottom: 30px;
-	  }
-	}
-	.left {
-		text-align: left;
-	}
-	.row {
-		margin: auto;
-		max-width: 300px;
-	}
-	.normal {
-		font-weight: normal;
-	}
-	.error {
-		font-weight: normal;
-		color: red;
-	}
-	</style>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 	<div class="container">
@@ -124,27 +15,26 @@
 				{% block navbar %}
 				{% endblock %}
 			</ul>
-			<h3 class="text-muted">IT Match</h3>
+			<h3 class="text-muted"><img src="{% static 'logo.png' %}" /> IT Match</h3>
 		</div>
 		<div class="jumbotron">
 			{% block content %}
 			{% endblock %}
-		</div>
+		</div> <!-- jumbotron -->
 	    <div class="footer">
 	    	<p>@Metropolia 2014
-			<iframe class="pull-right" src="http://ghbtns.com/github-btn.html?user=arimbr&repo=itmatch&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe>
-  			</p>
+			<iframe class="pull-right" src="http://ghbtns.com/github-btn.html?user=arimbr&repo=itmatch&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe></p>
     	</div>
 	</div> <!-- container -->
 
 	<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-50633286-1', 'itmatch.herokuapp.com');
-	ga('send', 'pageview');
+		ga('create', 'UA-50633286-1', 'itmatch.herokuapp.com');
+		ga('send', 'pageview');
 	</script>
 </body>
 </html>

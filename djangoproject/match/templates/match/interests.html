@@ -12,8 +12,7 @@
 	</div>
 	{% for tag in tags|dictsortreversed:"profiles.count" %}
 		<p>
-		<a href='{{tag.id}}'>{{ tag.name }}</a>
-		({{ tag.profiles.count }})
+			<h3><a href='{{tag.id}}'>{{ tag.name }}</a> ({{ tag.profiles.count }})</h3>
 		</p>
 	{% endfor %}
 {% endblock %}

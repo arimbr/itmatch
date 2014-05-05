@@ -10,12 +10,16 @@
 	<div class="well well-sm">
 		<h2 class="custom-block">{{ profile.name }}</h2>
 	</div>
-	<h3>Interests:</h3>
-	{% for tag in profile.tags.all %}
-		<a href={% url 'match:group' tag.id %}>{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
-	{% endfor %}
-	<h3>Similar profiles:</h3>
-	{% for distance in profile.closer %}
-		<a href="{{ distance.to_profile.id }}">{{ distance.to_profile.name }}</a> ({{ distance.d | floatformat:1 }}){% if not forloop.last %}, {% endif %}
-	{% endfor %}
+	<div>
+		<h3>Interests</h3>
+		{% for tag in profile.tags.all %}
+			<a href={% url 'match:group' tag.id %}>{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
+		{% endfor %}
+	</div>
+	<div>
+		<h3>Similar profiles</h3>
+		{% for distance in profile.closer %}
+			<a href="{{ distance.to_profile.id }}">{{ distance.to_profile.name }}</a> ({{ distance.d | floatformat:1 }}){% if not forloop.last %}, {% endif %}
+		{% endfor %}
+	</div>
 {% endblock %}

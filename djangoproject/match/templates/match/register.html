@@ -8,11 +8,10 @@
 {% endblock %}
 {% block content %}
 	<div class="well well-sm">
-		<h2 class="custom-block">Get started</h2>
+		<h2 class="custom-block">Foster your career</h2>
 	</div>
 	<form class="row left" action="{% url 'match:signup' %}" method="post">
 		{% csrf_token %}
-		<br />
 		<label for="name">Full name:</label>
 		<br />
 		<input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ name }}" autofocus />
@@ -20,9 +19,9 @@
 		<label for="email">Metropolia email:</label>
 		<br />
 		<input type="text" class="form-control" name="email" id="email" placeholder="" value="{{ email }}"/>
-		<label class="checkbox">
+		<!--<label class="checkbox">
       		<input type="checkbox" value="remember-me" checked><span class="normal">Notify me at launch</span>
-    	</label>
+    	</label> -->
 
     	<br />
     	<label>Interests: <span class="error">{{ errors }}</span></label>

@@ -12,10 +12,9 @@
 	</div>
 	{% for profile in profiles|dictsortreversed:"id" %}
 		<p>
-			<a href="/profiles/{{ profile.id }}">{{ profile.name }}</a>
-			<br>
+			<h3><a href="/profiles/{{ profile.id }}">{{ profile.name }}</a></h3>
 			{% for tag in profile.tags.all %}
-				{{ tag.name }}{% if not forloop.last %},{% endif %}
+				<span class="normal">{{ tag.name }}</span>{% if not forloop.last %},{% endif %}
 			{% endfor %}
 		</p>
 	{% endfor %}

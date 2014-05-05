@@ -35,6 +35,7 @@ def load_distances(from_profile):
 		d = tanimoto(from_profile, to_profile)
 
 		# from profile
+		#TODO check if the distance exists first to avoid duplicate
 		distance = Distance.objects.create(from_profile=from_profile, to_profile=to_profile, d=d)
 		distances.append(distance)
 

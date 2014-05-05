@@ -10,7 +10,7 @@
 	<div class="well well-sm">
 		<h2 class="custom-block">{{ tag.name }}</h2>
 	</div>
-	<h3>Members:</h3>
+	<h3>Members</h3>
 	{% for profile in tag.profiles.all %}
 		<a href="{% url 'match:profile' profile.id %}">{{ profile.name }}</a>{% if not forloop.last %}, {% endif %}
 	{% endfor %}
