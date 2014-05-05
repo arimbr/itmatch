@@ -1,0 +1,129 @@
+html {
+	overflow-y: scroll;
+}
+/* Space out content a bit */
+body {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+h3 {
+	font-size: 21px;
+}
+
+.jumbotron h1 {
+	font-size: 48px;
+}
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.container {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+/* Custom page header */
+.header {
+  height: 60px;
+  padding: 0px 8px;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding: 19px 15px 0px 15px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+.nav {
+	margin-top: 0px;
+}
+
+/* Custom block for well */
+.custom-block {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  margin-bottom: 0px;
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.container .jumbotron {
+	border-radius: 0px;
+}
+
+.text-muted {
+	visibility: hidden;
+}
+
+/* Customize container */
+@media (min-width: 720px) {
+  .container {
+    max-width: 700px;
+  }
+  .nav {
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  .text-muted {
+  	font-size: 26px;
+	visibility: visible;
+  }
+  .container .jumbotron {
+	border-radius: 6px;
+	padding-left: 22px;
+	padding-right: 22px;
+  }
+  .lead {
+  	padding: 0px 30px;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 720px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .footer {
+    padding-right: 15;
+    padding-left: 15;
+  }
+  /* Space out the masthead */
+  .header {
+  	height: 64px;
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+}
+.left {
+	text-align: left;
+}
+.row {
+	margin: auto;
+	max-width: 300px;
+}
+.normal {
+	font-weight: normal;
+	font-size: 14px;
+}
+.error {
+	font-weight: normal;
+	color: red;
+}
